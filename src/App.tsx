@@ -6,7 +6,7 @@ const controls: MlFormFieldProps[] = [
     name: 'firstName',
     placeholder: 'Name',
     type: 'text',
-    errorMessage: '',
+    errorMessage: 'Name cannot contain more than 15 characters',
     required: false,
     maxLength: 15,
   },
@@ -15,7 +15,7 @@ const controls: MlFormFieldProps[] = [
     name: 'lastName',
     placeholder: 'Last Name',
     type: 'text',
-    errorMessage: '',
+    errorMessage: 'Last Name cannot contain more than 20 characters',
     required: false,
     maxLength: 20,
   },
@@ -40,7 +40,12 @@ const controls: MlFormFieldProps[] = [
 function App() {
   return (
     <main className="h-screen w-full flex justify-center items-center">
-      <OrForm type={OrFormType.FORMIK} controls={controls} />
+      <div className="w-full max-w-7xl grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 px-8">
+        <div className="flex flex-col gap-2">
+          <h2 className="text-center uppercase text-slate-600 font-bold">Formik Form</h2>
+          <OrForm type={OrFormType.FORMIK} controls={controls} />
+        </div>
+      </div>
     </main>
   )
 }

@@ -32,7 +32,7 @@ export const MlFormField = ({
   }
 
   return (
-    <div className="flex flex-col gap-y-2">
+    <div className="flex flex-col gap-y-2 max-w-full">
       <div
         className={`border px-4 py-2 rounded-sm transition-colors ${hasError ? 'border-red-400' : ''} ${
           isFocus ? 'border-cyan-700' : 'border-gray-300'

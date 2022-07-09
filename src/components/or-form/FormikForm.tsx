@@ -1,4 +1,4 @@
-import { MlFormField, MlFormFieldProps } from '..'
+import { AtButton, MlFormField, MlFormFieldProps } from '..'
 import { useFormik } from 'formik'
 import { CustomFormProps } from './common'
 
@@ -16,10 +16,11 @@ const getValidateFunction = (controls: MlFormFieldProps[]) => {
   return (values: Record<string, string>) => {
     Object.keys(values).forEach((key, idx) => {
       const control = controls[idx]
+
       if (!values[key] && control.required) {
         errors[key] = control.errorMessage || 'Required'
-      } else if (values[key] === 'email' && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
+      } else if (control.type === 'email' && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors[key] = control.errorMessage || 'Invalid email address'
       } else if (control.maxLength && values[key].length > control.maxLength) {
         errors[key] = control.errorMessage || `Must be ${control.maxLength} characters or less`
       }
@@ -33,13 +34,13 @@ export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
   const formik = useFormik({
     initialValues: getInitialValues(controls),
     validate: getValidateFunction(controls),
-    onSubmit: (values) => {
-      onSubmit(values, null)
-    },
+    onSubmit,
   })
 
+  const hasErrors = Object.values(formik.errors).length
+
   return (
-    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-y-8 w-80">
+    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-y-8 max-w-full">
       {controls.map((control, idx) => {
         const { id, name, placeholder, type } = control
         return (
@@ -57,12 +58,7 @@ export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
           />
         )
       })}
-      <button
-        type="submit"
-        className="hover:bg-blue-500 active:bg-blue-700 transition-colors px-4 py-1 bg-blue-300 text-white"
-      >
-        Submit
-      </button>
+      <AtButton label="SUBMIT" disabled={!!hasErrors} />
     </form>
   )
 }

@@ -1,7 +1,7 @@
 {
   "name": "form-tests",
   "private": true,
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "dev": "vite",
     "tailwind:dev": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/output.css --watch",

@@ -13,13 +13,12 @@ export enum OrFormType {
 export type OrFormProps = FormHTMLAttributes<HTMLFormElement> & {
   type: OrFormType
   controls: MlFormFieldProps[]
-  handleSubmit: (values: Record<string, string>) => void
+  handleSubmit?: (values: Record<string, string>) => void
 }
 
-export const OrForm = ({ type, onSubmit, handleSubmit, controls }: OrFormProps) => {
-  const handleSubmitForm = (e: FormEvent<HTMLFormElement>, values: Record<string, string>) => {
+export const OrForm = ({ type, handleSubmit, controls }: OrFormProps) => {
+  const handleSubmitForm = (values: Record<string, string>) => {
     handleSubmit?.(values)
-    onSubmit?.(e)
   }
 
   const renderForm = () => {
