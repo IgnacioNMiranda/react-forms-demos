@@ -1,4 +1,4 @@
-import { FormikForm, MlFormFieldProps } from './components'
+import { OrForm, MlFormFieldProps, OrFormType } from './components'
 
 const controls: MlFormFieldProps[] = [
   {
@@ -40,7 +40,7 @@ const controls: MlFormFieldProps[] = [
 function App() {
   return (
     <main className="h-screen w-full flex justify-center items-center">
-      <FormikForm controls={controls} />
+      <OrForm type={OrFormType.FORMIK} controls={controls} />
     </main>
   )
 }

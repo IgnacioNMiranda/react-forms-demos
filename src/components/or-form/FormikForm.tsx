@@ -1,5 +1,6 @@
-import { MlFormField, MlFormFieldProps } from './MlFormField'
+import { MlFormField, MlFormFieldProps } from '..'
 import { useFormik } from 'formik'
+import { CustomFormProps } from './common'
 
 const getInitialValues = (controls: MlFormFieldProps[]) => {
   const initialValues: Record<string, string> = {}
@@ -28,12 +29,12 @@ const getValidateFunction = (controls: MlFormFieldProps[]) => {
   }
 }
 
-export const FormikForm = ({ controls }: { controls: MlFormFieldProps[] }) => {
+export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
   const formik = useFormik({
     initialValues: getInitialValues(controls),
     validate: getValidateFunction(controls),
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+      onSubmit(values, null)
     },
   })
 

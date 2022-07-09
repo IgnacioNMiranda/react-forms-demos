@@ -1,4 +1,4 @@
-# `react-forms-learning`
+# `react-forms-demos`
 
 ## Description
 
