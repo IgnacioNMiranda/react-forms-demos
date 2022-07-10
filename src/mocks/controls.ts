@@ -1,7 +1,7 @@
 import { MlFormFieldProps } from '../components'
 
 /**
- * Just for the sake of simplicity I used multiple mocks. The ideal case is that
+ * Multiple mocks were used just for the sake of simplicity. The ideal case is that
  * every form has fields with unique ids and names.
  */
 
@@ -80,44 +80,6 @@ export const formikControlsMock: MlFormFieldProps[] = [
   },
 ]
 
-export const hookFormControlsMock: MlFormFieldProps[] = [
-  {
-    id: 'ageHook',
-    name: 'Age',
-    placeholder: 'Age',
-    type: 'number',
-    errorMessage: `You have to enter a valid age`,
-    required: false,
-    maxLength: 3,
-    minLength: 1,
-  },
-  {
-    id: 'companyHook',
-    name: 'Company ',
-    placeholder: 'Company',
-    type: 'text',
-    errorMessage: 'You have to enter a valid company',
-    required: true,
-  },
-  {
-    id: 'hookPassword',
-    name: 'Password',
-    placeholder: 'Password',
-    type: 'password',
-    errorMessage: 'You have to enter a password',
-    required: true,
-  },
-  {
-    id: 'firstNameHook',
-    name: 'First Name',
-    placeholder: 'First Name',
-    type: 'text',
-    errorMessage: 'Cannot contain more than 20 characters',
-    required: true,
-    maxLength: 20,
-  },
-]
-
 export const finalFormControlsMock: MlFormFieldProps[] = [
   {
     id: 'finalName',
@@ -151,6 +113,45 @@ export const finalFormControlsMock: MlFormFieldProps[] = [
     placeholder: 'Password',
     type: 'password',
     errorMessage: 'You have to enter a password',
+    required: true,
+  },
+]
+
+export const hookFormControlsMock: MlFormFieldProps[] = [
+  {
+    id: 'ageHook',
+    name: 'Age',
+    placeholder: 'Age',
+    type: 'number',
+    errorMessage: `You have to enter a valid age`,
+    required: false,
+    maxLength: 3,
+    minLength: 1,
+  },
+  {
+    id: 'companyHook',
+    name: 'Company ',
+    placeholder: 'Company',
+    type: 'text',
+    errorMessage: 'You have to enter a valid company',
+    minLength: 2,
+    required: true,
+  },
+  {
+    id: 'hookPassword',
+    name: 'Password',
+    placeholder: 'Password',
+    type: 'password',
+    errorMessage: 'You have to enter a password',
+    minLength: 9,
+    required: true,
+  },
+  {
+    id: 'hookEmail',
+    name: 'Email',
+    placeholder: 'Email',
+    type: 'email',
+    errorMessage: 'You have to enter a valid email',
     required: true,
   },
 ]

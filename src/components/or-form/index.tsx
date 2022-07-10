@@ -2,6 +2,7 @@ import { FormHTMLAttributes, memo } from 'react'
 import { MlFormFieldProps } from '../ml-form-field'
 import { FinalForm } from './FinalForm'
 import { FormikForm } from './FormikForm'
+import { HookForm } from './HookForm'
 import { NativeForm } from './NativeForm'
 
 export enum OrFormType {
@@ -34,6 +35,8 @@ export const OrFormMemo = ({ type, handleSubmit, controls }: OrFormProps) => {
         return <FinalForm controls={controls} onSubmit={handleSubmitForm} />
 
       case OrFormType.HOOK_FORM:
+        return <HookForm controls={controls} onSubmit={handleSubmitForm} />
+
       default:
         return null
     }

@@ -21,9 +21,15 @@ Personal preference:
 
 ### 3. Package: React Final Form (v6.5.9)
 
-Package limitations:
+Package behaviour:
 
 * It seems like does not allow to identify if some field has errors before being filled (e.g. required fields), leading to false positive validations.
+
+### 4. Package: React Hook Form (v7.33.1)
+
+Package behaviour:
+
+* It won't show errors or any feedback until the user submit the form.
 
 ## Author
 

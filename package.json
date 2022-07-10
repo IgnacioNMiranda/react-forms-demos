@@ -1,7 +1,7 @@
 {
   "name": "react-forms-demos",
   "private": true,
-  "version": "0.3.1",
+  "version": "0.4.0",
   "scripts": {
     "dev": "vite",
     "tailwind:dev": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/output.css --watch",
@@ -16,7 +16,8 @@
     "formik": "^2.2.9",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-final-form": "^6.5.9"
+    "react-final-form": "^6.5.9",
+    "react-hook-form": "^7.33.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
