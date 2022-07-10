@@ -23,8 +23,20 @@ export const getValidateFunction = (controls: MlFormFieldProps[]) => {
         errors[key] = control.errorMessage || 'Required'
       } else if (control.type === 'email' && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values[key])) {
         errors[key] = control.errorMessage || 'Invalid email address'
-      } else if (control.maxLength && values[key].length > control.maxLength) {
-        errors[key] = control.errorMessage || `Must be ${control.maxLength} characters or less`
+      } else if (control.maxLength && typeof values[key] === 'string' && values[key].length > control.maxLength) {
+        errors[key] = `Cannot contain more than ${control.maxLength} characters`
+      } else if (
+        control.maxLength &&
+        typeof values[key] === 'number' &&
+        String(values[key]).length > control.maxLength
+      ) {
+        errors[key] = `Must be lower than ${control.maxLength} digits`
+      } else if (
+        control.minLength &&
+        typeof values[key] === 'number' &&
+        String(values[key]).length < control.minLength
+      ) {
+        errors[key] = `Must be greater than ${control.minLength} digits`
       }
     })
 

@@ -17,7 +17,7 @@ export const MlFormField = ({
   onBlur,
   errorMessage,
   visited,
-  required,
+  required = false,
 }: MlFormFieldProps) => {
   const hasError = !!errorMessage && visited
 
@@ -45,11 +45,12 @@ export const MlFormField = ({
           type={type}
           name={name}
           required={required}
-          placeholder={placeholder}
+          placeholder={`${placeholder}${required ? ' (*)' : ''}`}
           onChange={onChange}
           onBlur={handleBlur}
           onFocus={handleFocus}
           value={value}
+          autoComplete={type === 'password' ? 'off' : 'on'}
         />
       </div>
       {hasError && <span className="text-red-400 font-bold">{errorMessage}</span>}

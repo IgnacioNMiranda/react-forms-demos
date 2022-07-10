@@ -55,7 +55,7 @@ export const NativeForm = ({ controls, onSubmit }: CustomFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-y-8 max-w-full">
       {controls.map((control, idx) => {
-        const { id, name, placeholder, type } = control
+        const { id, name, placeholder, type, required } = control
         return (
           <MlFormField
             key={`${id}-${name}-${idx}`}
@@ -65,6 +65,7 @@ export const NativeForm = ({ controls, onSubmit }: CustomFormProps) => {
             value={values[id]}
             type={type}
             name={name}
+            required={required}
             placeholder={placeholder}
             errorMessage={errors[id]}
             visited={touched[id]}

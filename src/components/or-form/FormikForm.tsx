@@ -18,7 +18,7 @@ export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-y-8 w-full">
       {controls.map((control, idx) => {
-        const { id, name, placeholder, type } = control
+        const { id, name, placeholder, type, required } = control
 
         // With Formik, both id and name have to be equal.
         return (
@@ -30,6 +30,7 @@ export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
             value={formik.values[id]}
             type={type}
             name={id}
+            required={required}
             placeholder={placeholder}
             errorMessage={formik.errors[id]}
             visited={formik.touched[id]}
