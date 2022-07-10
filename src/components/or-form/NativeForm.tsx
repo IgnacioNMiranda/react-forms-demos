@@ -1,61 +1,77 @@
-import { MlFormField, MlFormFieldProps } from '..'
-import { useFormik } from 'formik'
-import { FormEvent, FormEventHandler } from 'react'
-import { CustomFormProps } from './common'
-
-const getInitialValues = (controls: MlFormFieldProps[]) => {
-  const initialValues: Record<string, string> = {}
-  controls.forEach((control) => {
-    initialValues[control.id] = ''
-  })
-
-  return initialValues
-}
-
-const getValidateFunction = (controls: MlFormFieldProps[]) => {
-  const errors: Record<string, string> = {}
-  return (values: Record<string, string>) => {
-    Object.keys(values).forEach((key, idx) => {
-      const control = controls[idx]
-      if (!values[key] && control.required) {
-        errors[key] = control.errorMessage || 'Required'
-      } else if (values[key] === 'email' && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address'
-      } else if (control.maxLength && values[key].length > control.maxLength) {
-        errors[key] = control.errorMessage || `Must be ${control.maxLength} characters or less`
-      }
-    })
-
-    return errors
-  }
-}
+import { AtButton, MlFormField } from '..'
+import { ChangeEventHandler, FocusEventHandler, FormEventHandler, useEffect, useState } from 'react'
+import { CustomFormProps, getInitialValues, getValidateFunction } from './common'
 
 export const NativeForm = ({ controls, onSubmit }: CustomFormProps) => {
+  const [errors, setErrors] = useState<Record<string, string | undefined>>({})
+  const [touched, setTouched] = useState<Record<string, boolean>>({})
+  const [values, setValues] = useState<Record<string, string>>(() => getInitialValues(controls))
+
+  const validate = () => {
+    const validateFunction = getValidateFunction(controls)
+    const errors = validateFunction(values)
+    setErrors(errors)
+  }
+
+  useEffect(() => {
+    validate()
+  }, [])
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const control = controls.find((c) => c.id === e.target.id)
+    if (control) {
+      validate()
+      setValues({
+        ...values,
+        [e.target.id]: e.target.value,
+      })
+    }
+  }
+
+  const handleBlur: FocusEventHandler<HTMLInputElement> = (e) => {
+    const control = controls.find((c) => c.id === e.target.id)
+    if (control) {
+      validate()
+      setTouched({
+        ...touched,
+        [e.target.id]: true,
+      })
+    }
+  }
+
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target as HTMLFormElement)
+    const values = Object.fromEntries(formData)
+
+    // Considering not file uploads.
+    const normValues = values as Record<string, string>
+
+    onSubmit(normValues)
+  }
+
+  const hasErrors = Object.values(errors).length
+
   return (
-    <form className="flex flex-col gap-y-8 w-80">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-y-8 max-w-full">
       {controls.map((control, idx) => {
         const { id, name, placeholder, type } = control
         return (
           <MlFormField
             key={`${id}-${name}-${idx}`}
             id={id}
-            // onChange={formik.handleChange}
-            // onBlur={formik.handleBlur}
-            // value={formik.values[id]}
-            // type={type}
-            // name={name}
-            // placeholder={placeholder}
-            // errorMessage={formik.errors[id]}
-            // visited={formik.touched[id]}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values[id]}
+            type={type}
+            name={name}
+            placeholder={placeholder}
+            errorMessage={errors[id]}
+            visited={touched[id]}
           />
         )
       })}
-      <button
-        type="submit"
-        className="hover:bg-blue-500 active:bg-blue-700 transition-colors px-4 py-1 bg-blue-300 text-white"
-      >
-        Submit
-      </button>
+      <AtButton label="SUBMIT" disabled={!!hasErrors} />
     </form>
   )
 }

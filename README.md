@@ -6,6 +6,10 @@ Small Vite project built with learning purposes. It defines forms using React Li
 
 ## Considerations
 
+### Native
+
+* Does not consider files for the sake of simplicity.
+
 ### Formik
 
 * Does not use `<Formik>` or `<Field>` components in order to make `MlFormField` independant of the selected form.

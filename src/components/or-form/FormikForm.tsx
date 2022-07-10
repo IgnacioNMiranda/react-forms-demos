@@ -1,34 +1,7 @@
-import { AtButton, MlFormField, MlFormFieldProps } from '..'
+import { AtButton, MlFormField } from '..'
 import { useFormik } from 'formik'
-import { CustomFormProps } from './common'
-
-const getInitialValues = (controls: MlFormFieldProps[]) => {
-  const initialValues: Record<string, string> = {}
-  controls.forEach((control) => {
-    initialValues[control.id] = ''
-  })
-
-  return initialValues
-}
-
-const getValidateFunction = (controls: MlFormFieldProps[]) => {
-  const errors: Record<string, string> = {}
-  return (values: Record<string, string>) => {
-    Object.keys(values).forEach((key, idx) => {
-      const control = controls[idx]
-
-      if (!values[key] && control.required) {
-        errors[key] = control.errorMessage || 'Required'
-      } else if (control.type === 'email' && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors[key] = control.errorMessage || 'Invalid email address'
-      } else if (control.maxLength && values[key].length > control.maxLength) {
-        errors[key] = control.errorMessage || `Must be ${control.maxLength} characters or less`
-      }
-    })
-
-    return errors
-  }
-}
+import { CustomFormProps, getInitialValues, getValidateFunction } from './common'
+import { useEffect } from 'react'
 
 export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
   const formik = useFormik({
@@ -37,12 +10,17 @@ export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
     onSubmit,
   })
 
-  const hasErrors = Object.values(formik.errors).length
+  useEffect(() => {
+    const validate = getValidateFunction(controls)
+    formik.setErrors(validate(formik.values))
+  }, [])
 
   return (
-    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-y-8 max-w-full">
+    <form onSubmit={formik.handleSubmit} className="flex flex-col gap-y-8 w-full">
       {controls.map((control, idx) => {
         const { id, name, placeholder, type } = control
+
+        // With Formik, both id and name have to be equal.
         return (
           <MlFormField
             key={`${id}-${name}-${idx}`}
@@ -51,14 +29,14 @@ export const FormikForm = ({ controls, onSubmit }: CustomFormProps) => {
             onBlur={formik.handleBlur}
             value={formik.values[id]}
             type={type}
-            name={name}
+            name={id}
             placeholder={placeholder}
             errorMessage={formik.errors[id]}
             visited={formik.touched[id]}
           />
         )
       })}
-      <AtButton label="SUBMIT" disabled={!!hasErrors} />
+      <AtButton label="SUBMIT" disabled={!formik.isValid} />
     </form>
   )
 }

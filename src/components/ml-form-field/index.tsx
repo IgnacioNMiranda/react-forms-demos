@@ -1,4 +1,4 @@
-import { FocusEventHandler, InputHTMLAttributes, useState } from 'react'
+import { FocusEventHandler, InputHTMLAttributes, memo, useState } from 'react'
 
 export type MlFormFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   errorMessage?: string
@@ -17,6 +17,7 @@ export const MlFormField = ({
   onBlur,
   errorMessage,
   visited,
+  required,
 }: MlFormFieldProps) => {
   const hasError = !!errorMessage && visited
 
@@ -43,6 +44,7 @@ export const MlFormField = ({
           id={id}
           type={type}
           name={name}
+          required={required}
           placeholder={placeholder}
           onChange={onChange}
           onBlur={handleBlur}
