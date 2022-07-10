@@ -44,7 +44,7 @@ export const NativeForm = ({ controls, onSubmit }: CustomFormProps) => {
     const formData = new FormData(e.target as HTMLFormElement)
     const values = Object.fromEntries(formData)
 
-    // Considering not file uploads.
+    // Considering no file uploads.
     const normValues = values as Record<string, string>
 
     onSubmit(normValues)

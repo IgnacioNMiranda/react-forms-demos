@@ -22,13 +22,13 @@ function App() {
         </div>
 
         <div className="flex flex-col gap-2">
-          <h2 className="text-center uppercase text-slate-600 font-bold">Hook Form</h2>
-          <OrForm type={OrFormType.NATIVE} controls={hookFormControlsMock} handleSubmit={onSubmit} />
+          <h2 className="text-center uppercase text-slate-600 font-bold">Final Form</h2>
+          <OrForm type={OrFormType.FINAL_FORM} controls={finalFormControlsMock} handleSubmit={onSubmit} />
         </div>
 
         <div className="flex flex-col gap-2">
-          <h2 className="text-center uppercase text-slate-600 font-bold">Final Form</h2>
-          <OrForm type={OrFormType.NATIVE} controls={finalFormControlsMock} handleSubmit={onSubmit} />
+          <h2 className="text-center uppercase text-slate-600 font-bold">Hook Form</h2>
+          <OrForm type={OrFormType.HOOK_FORM} controls={hookFormControlsMock} handleSubmit={onSubmit} />
         </div>
       </div>
     </main>
