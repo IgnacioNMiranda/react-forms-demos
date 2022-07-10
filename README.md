@@ -2,7 +2,7 @@
 
 ## Description
 
-Small Vite project built with learning purposes. It defines forms using React Libraries like `Formik`, `Final Form`, and `Coming Soon`.
+Small Vite project built with learning purposes. It defines forms using React Libraries like `Formik`, `React Final Form`, and `React Hook Form`.
 
 ## Considerations
 
