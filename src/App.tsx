@@ -3,7 +3,7 @@ import { finalFormControlsMock, formikControlsMock, hookFormControlsMock, native
 
 function App() {
   const onSubmit: OrFormProps['handleSubmit'] = (values) => {
-    // This would send data to a service based on some serviceType prop or whatever.
+    // This would send data to some service based on a serviceType prop or whatever.
     alert(JSON.stringify(values))
   }
 
