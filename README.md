@@ -2,7 +2,35 @@
 
 ## Description
 
-Small Vite project built with learning purposes. It defines forms using React Libraries like `Formik`, `React Final Form`, and `React Hook Form`.
+Small Vite project built with learning purposes. It defines forms using native FormData API and some React Libraries like `Formik`, `React Final Form`, and `React Hook Form`.
+
+## Setup
+
+```bash
+# Install dependencies
+yarn
+
+# Development
+yarn dev
+yarn tailwind:dev # (on secondary terminal)
+
+# Build
+yarn build
+
+# Preview production
+yarn preview
+
+```
+
+## Utility commands
+
+```bash
+# Lint
+yarn lint:fix
+
+# Format (using Prettier)
+yarn format
+```
 
 ## Considerations
 
